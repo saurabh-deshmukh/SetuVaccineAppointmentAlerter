@@ -10,7 +10,7 @@ from fake_useragent import UserAgent
 ua = UserAgent()
 
 
-def checkappointments(jsn, v=False, age = 18):
+def checkappointments(jsn, v=False, age=18):
     aflag = int(0)
     for i in jsn["centers"]:
         if v:
@@ -59,10 +59,10 @@ def writetofile(csvstring, pins):
     path = './CSVs/'
     f_name = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
     f_pin = str(pins[0]) + str(pins[len(pins) - 1])
-    f = open('./sethu_CSVs/' + str(f_name) + "_" + f_pin + '.csv', 'w+')
+    f = open(path + str(f_name) + "_" + f_pin + '.csv', 'w+')
     f.write(csvstring)
     f.close()
-    t = open('./sethu_CSVs/' + str(f_name) + "_" + f_pin + '.txt', 'w+')
+    t = open(path + str(f_name) + "_" + f_pin + '.txt', 'w+')
     t.write(csvstring.replace(',', '\t'))
     t.close()
     del f, t, f_name, f_pin
@@ -89,7 +89,7 @@ def setu(pins, v=False, createcsv=False, age=18):
         try:
             req = urllib.request.Request(url, data=None,
                                              headers={'User-Agent': ua.random})
-            web_url= urllib.request.urlopen(req)
+            web_url = urllib.request.urlopen(req)
             data = web_url.read()
             jsn = json.loads(data)
             counter += checkappointments(jsn, v, age)
@@ -110,7 +110,6 @@ def setu(pins, v=False, createcsv=False, age=18):
     if counter == 0:
         print("\n\nSorry! No appointments available.")
 
-
     print('\n-------xx-------xx-------xx-------xx-------'
           '\n\t\tSearch Complete'
           '\n-------xx-------xx-------xx-------xx-------')
@@ -121,6 +120,5 @@ def setu(pins, v=False, createcsv=False, age=18):
         print("Failed to delete one or more variables")
 
 
-
 if __name__ == "__main__":
-    setu(v=False, createcsv=False, age = 18)
+    setu(v=False, createcsv=False, age=18)
